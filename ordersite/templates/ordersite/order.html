@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>商品購入ページです。</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel='stylesheet' href="{% static 'css/order.css' %}">
+  </head>
+  <body>
+    <script src="{% static 'js/order.js' %}"></script>
+
+    <div class="cart">
+      <h2>カート</h2>
+      <tr>合計金額：</tr><div id="total_amount"></div>円
+    </div>
+    <h1>商品購入ページ</h1>
+    <div class="product">
+      <img src="{% static 'img/sample.png' %}"><br>
+      <tr>品名：</tr><tr>ぱちゃぽ1</tr><br>
+      <tr>品番：</tr><tr>ぱちゃぽ2</tr><br>
+      <tr>価格：</tr><tr>10,000</tr><br>
+      <tr>サイズ：</tr>
+      <select name="size">
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+      </select>
+      <tr>着数：</tr>
+      <select name="number" id="number">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+      </select><br>
+      <input type="button" value="カートに入れる" onclick="AddToCart();">
+      合計価格：{{total_price}}
+    </div>
+    {{total_price}}
+  </body>
+</html>

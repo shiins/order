@@ -1,0 +1,13 @@
+#total_amount {
+  display: inline-block;
+}
+
+.cart {
+  position: fixed;
+  left: 80%;
+}
+
+.product {
+  display: inline-block;
+}
+/*# sourceMappingURL=order.css.map */
