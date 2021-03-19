@@ -12,35 +12,48 @@
 
     <div class="cart">
       <h2>カート</h2>
-      <tr>合計金額：</tr><div id="total_amount"></div>円
+      <tr>品名：<div id="品名"></div></tr>
+      <tr>サイズ：<div id="サイズ"></div></tr><div id="test"></div>
+      <tr>数量：<div id="数量"></div></tr>
+      <tr>小計：<div id="小計"></div></tr>
+      <input type="submit" value="購入する" onclick="Purchase();">
     </div>
     <h1>商品購入ページ</h1>
-    <div class="product">
-      <img src="{% static 'img/sample.png' %}"><br>
-      <tr>品名：</tr><tr>ぱちゃぽ1</tr><br>
-      <tr>品番：</tr><tr>ぱちゃぽ2</tr><br>
-      <tr>価格：</tr><tr>10,000</tr><br>
-      <tr>サイズ：</tr>
-      <select name="size">
-        <option>S</option>
-        <option>M</option>
-        <option>L</option>
-      </select>
-      <tr>着数：</tr>
-      <select name="number" id="number">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-      </select><br>
-      <input type="button" value="カートに入れる" onclick="AddToCart();">
-      合計価格：{{total_price}}
-    </div>
-    {{total_price}}
+    <input type="hidden" id="products" value="{{products}}">
+    {% for product in products %}
+      {% with forloop.counter0|stringformat:"s" as scounter %}
+        <div class="product">
+          <img src="{{product.image.url}}"><br>
+          <tr>品名：{{product.品名}}</tr><br>
+          <tr>品番：{{product.品番}}</tr><br>
+          <tr>価格：{{product.価格}}</tr><br>
+          <tr>サイズ：</tr>
+          {% with size="size"|add:scounter %}
+            <select name="size" id="{{size}}">
+              {% for val in product.sizes.all %}
+                <option>{{val.size}}</option>
+              {% endfor %}
+            </select>
+          {% endwith %}
+          <tr>数量：</tr>
+          {% with number="number"|add:scounter %}
+            <select name="number" id={{number}}>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+            </select><br>
+          {% endwith %}
+          <input type="hidden" id="name" value="{{product.品名}}">
+          <input type="hidden" id="price" value="{{product.価格}}">
+          <input type="button" id={{forloop.counter0}} value="カートに入れる" onclick="AddToCart(this.id);">
+        </div>
+      {% endwith %}
+    {% endfor %}
   </body>
 </html>
