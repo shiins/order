@@ -1,6 +1,6 @@
 function AddToCart(b) {
   // 引数bは文字列になっている
-  var products = document.getElementById('products').value;
+  // var products = document.getElementById('products').value;
   var name = document.getElementById('name').value;
   var size = document.getElementById('size'+b).value;
   var price = document.getElementById('price').value;
@@ -27,3 +27,7 @@ function AddToCart(b) {
   //   products_inf = products_inf.push(product_inf);
   // }
 }
+
+// function Purchase(){
+
+// }
