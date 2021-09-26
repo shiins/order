@@ -1,28 +1,23 @@
-<!DOCTYPE html>
-{% load static %}
-<html>
-  <head>
-    <title>商品購入ページです。</title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link rel='stylesheet' href="{% static 'css/order.css' %}">
-  </head>
-  <body>
-    <script src="{% static 'js/order.js' %}"></script>
+{% extends 'ordersite/base.html' %}
 
-    <div class="cart">
-      <h2>カート</h2>
-      <tr>品名：<div id="品名"></div></tr>
-      <tr>サイズ：<div id="サイズ"></div></tr><div id="test"></div>
-      <tr>数量：<div id="数量"></div></tr>
-      <tr>小計：<div id="小計"></div></tr>
-      <input type="submit" value="購入する" onclick="Purchase();">
-    </div>
-    <h1>商品購入ページ</h1>
-    {% for product in products %}
-      {% with forloop.counter0|stringformat:"s" as scounter %}
-        <div class="product">
-          <img src="{{product.image.url}}"><br>
+{% block content %}
+  <div class="cart">
+    <h2>カート</h2>
+    <div id="list"></div>
+    <form action="{% url 'move_to_confirmation' %}" method="GET">
+      {% csrf_token %}
+      <div hidden id="code"></div>
+      <div hidden id="code2"></div>
+      <input type="submit" value="購入する">
+    </form>
+    <input type="button" value="カートを空にする" onclick="DeleteCart();">
+  </div>
+  <h1>商品購入ページ</h1>
+  {% for product in products %}
+    {% with forloop.counter0|stringformat:"s" as scounter %}
+      <div class="product">
+        <img src="{{product.image.url}}" width="250" height="250">
+        <div class="product_data">
           <tr>品名：{{product.品名}}</tr><br>
           <tr>品番：{{product.品番}}</tr><br>
           <tr>価格：{{product.価格}}</tr><br>
@@ -35,8 +30,8 @@
             </select>
           {% endwith %}
           <tr>数量：</tr>
-          {% with number="number"|add:scounter %}
-            <select name="number" id={{number}}>
+          {% with quantity="quantity"|add:scounter %}
+            <select name="quantity" id={{quantity}}>
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -48,11 +43,15 @@
               <option>9</option>
             </select><br>
           {% endwith %}
-          <input type="hidden" id="name" value="{{product.品名}}">
-          <input type="hidden" id="price" value="{{product.価格}}">
+          {% with name="name"|add:scounter %}
+            <input type="hidden" id="{{name}}" value="{{product.品名}}">
+          {% endwith %}
+          {% with price="price"|add:scounter %}
+            <input type="hidden" id="{{price}}" value="{{product.価格}}">
+          {% endwith %}
           <input type="button" id={{forloop.counter0}} value="カートに入れる" onclick="AddToCart(this.id);">
         </div>
-      {% endwith %}
-    {% endfor %}
-  </body>
-</html>
+      </div>
+    {% endwith %}
+  {% endfor %}
+{% endblock %}

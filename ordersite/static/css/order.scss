@@ -8,5 +8,8 @@
 }
 
 .product {
-  display: inline-block;
+  // display: inline-block;
+  .product_data{
+    display: inline-block;
+  }
 }

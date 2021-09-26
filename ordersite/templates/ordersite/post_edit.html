@@ -1,0 +1,67 @@
+{% extends 'ordersite/base.html' %}
+{% load tags %}
+
+{% block content %}
+  <h2>購入画面</h2>
+  現在選択されている商品が表示されています。
+
+  <!-- 入力欄と送信項目 -->
+  <form method="POST">{% csrf_token %}   
+
+    <!-- Formに適した形にするためにjsへデータを送信 -->
+    <!-- 同時に選択している商品を表示 -->
+    <div>
+      {% for key, value in listed_products.items %}
+        {% with forloop.counter0|stringformat:"s" as scounter %}
+          {% for k, v in value.items %}
+            {% if forloop.counter|modulo:4 == 1 %}
+              {% with name="name"|add:scounter %}
+                <input type="hidden" value="{{v}}" id="{{name}}">
+                品名：{{v}}<br>
+              {% endwith %}
+            {% elif forloop.counter|modulo:4 == 2 %}
+              {% with size="size"|add:scounter %}
+                <input type="hidden" value="{{v}}" id="{{size}}">
+                サイズ：{{v}}<br>
+              {% endwith %}
+            {% elif forloop.counter|modulo:4 == 3 %}
+              {% with price="price"|add:scounter %}
+                <input type="hidden" value="{{v}}" id="{{price}}">
+                価格：{{v}}<br>
+              {% endwith %}
+            {% elif forloop.counter|modulo:4 == 0 %}
+              {% with quantity="quantity"|add:scounter %}
+                <input type="hidden" value="{{v}}" id="{{quantity}}">
+                数量：{{v}}<br>
+              {% endwith %}
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+      {% endfor %}
+    </div>
+
+    <!-- 購入者情報の入力 -->
+    お客様のお名前とメールアドレスを入力してください。<br>
+    お名前：<input id="purchaser" onchange="InputForm()">
+    メールアドレス：<input id="email" onchange="InputForm()"><br><br>
+
+    <!-- 購入商品のデータ -->
+    <div hidden>
+      {% for form in formset %}
+        {% with forloop.counter0|stringformat:"s" as scounter %}
+          {{ form.id }}
+          <input class="purchaser" id="{{form.購入者}}">
+          <input class="email" id="{{form.メールアドレス}}">
+          <input class="formed_name" id="{{form.品名}}">
+          <input class="formed_size" id="{{form.サイズ}}">
+          <input class="formed_price" id="{{form.価格}}">
+          <input class="formed_quantity" id="{{form.数量}}">
+        {% endwith %}
+      {% endfor %}
+    </div>
+
+    {{ formset.management_form }}
+    <button type="button" class="save btn btn-default" onclick="submit();">購入確定</button>
+  </form>
+
+{% endblock %}

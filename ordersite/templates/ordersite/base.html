@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <title>商品購入ページ</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel='stylesheet' href="{% static 'css/order.css' %}">
+  </head>
+  <body>
+    <script src="{% static 'js/order.js' %}"></script>
+    <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>
