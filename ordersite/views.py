@@ -32,12 +32,13 @@ def move_to_confirmation(request):
 
   if request.method == "POST":
     if formset.is_valid():
-
+      recipient_address = ''
       mes = ""
       i = 0
       for form in formset:
         if not form.__getitem__("品名").value():
           break
+        recipient_address = str(form.__getitem__("メールアドレス").value())
         mes += str(form.__getitem__("品名").value()) + "\n"
         i += 1
 
@@ -45,7 +46,7 @@ def move_to_confirmation(request):
       subject = "ご注文いただいた商品のお知らせ"
       message = "この度はご注文いただき誠にありがとうございます。\nご注文いただいた商品は、\n\n" + mes + "\nの" + str(i) + "点になります。"
       from_email = 'kikoh.hirakata@gmail.com'
-      recipient_list = ['shin1201.try@gmail.com']
+      recipient_list = [recipient_address]
       send_mail(subject, message, from_email, recipient_list)
 
       formset.save()
