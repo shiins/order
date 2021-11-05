@@ -1,4 +1,5 @@
 {% extends 'ordersite/base.html' %}
+{% load humanize %}
 
 {% block content %}
   <div class="cart">
@@ -20,7 +21,7 @@
         <div class="product_data">
           <tr>品名：{{product.品名}}</tr><br>
           <tr>品番：{{product.品番}}</tr><br>
-          <tr>価格：{{product.価格}}</tr><br>
+          <tr>価格：{{product.価格|intcomma}}</tr><br>
           <tr>サイズ：</tr>
           {% with size="size"|add:scounter %}
             <select name="size" id="{{size}}">

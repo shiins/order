@@ -22,7 +22,7 @@ function AddToCart(b) {
   for(var i=0; i<listed_products.length; i++){
     list += listed_products[i].name + '(' + listed_products[i].size + ') ×' + listed_products[i].quantity + '<br>';
   }
-  list += '合計金額：'+total_price;
+  list += '合計金額：'+total_price.toLocaleString();
   document.getElementById('list').innerHTML = list;
 
   //htmlコード

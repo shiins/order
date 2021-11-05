@@ -1,5 +1,6 @@
 {% extends 'ordersite/base.html' %}
 {% load tags %}
+{% load humanize %}
 
 {% block content %}
   <h2>購入画面</h2>
@@ -27,7 +28,7 @@
             {% elif forloop.counter|modulo:4 == 3 %}
               {% with price="price"|add:scounter %}
                 <input type="hidden" value="{{v}}" id="{{price}}">
-                価格：{{v}}<br>
+                価格：{{v|intcomma}}<br>
               {% endwith %}
             {% elif forloop.counter|modulo:4 == 0 %}
               {% with quantity="quantity"|add:scounter %}

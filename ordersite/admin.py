@@ -20,7 +20,7 @@ class OfferResource(resources.ModelResource):
 @admin.register(Offer)
 class OfferAdmin(ImportExportMixin, admin.ModelAdmin):
   ordering = ['-日付']
-  list_display = ('購入者', '日付', 'メールアドレス', '品名', 'サイズ', '数量', '小計')
+  list_display = ('購入者', '日付', 'メールアドレス', '品名', 'サイズ', '数量', '小計_表示用')
   list_filter = (
     ('日付', DateRangeFilter),
   )

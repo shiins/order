@@ -36,11 +36,13 @@ class Offer(models.Model):
   size = models.CharField(name='サイズ', max_length=20, null=True, blank=True)
   quantity = models.IntegerField(name='数量', null=True, blank=True)
   subtotal = models.IntegerField(name='小計', null=True, blank=True)
+  subtotal_display = models.CharField(name='小計_表示用', max_length=20, null=True, blank=True)
 
   date = models.DateField(name="日付", null=True, blank=True)
 
   def save(self, *args, **kwargs):
     self.小計 = self.価格 * self.数量
+    self.小計_表示用 = "{:,}".format(self.小計)
     super(Offer, self).save(*args, **kwargs)
 
   def __str__(self):
