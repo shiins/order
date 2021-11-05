@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from adminsortable.models import SortableMixin
 
 class Size(models.Model):
   size = models.CharField(max_length=20)
@@ -8,7 +9,7 @@ class Size(models.Model):
   def __str__(self):
     return self.size
 
-class Product(models.Model):
+class Product(SortableMixin):
   name = models.CharField(name='品名', max_length=20)
   id = models.CharField(name='品番', max_length=20)
   price = models.IntegerField(name='価格')
@@ -16,6 +17,11 @@ class Product(models.Model):
   size = models.CharField(name='サイズ', max_length=20, blank=True, editable=False)
   num = models.IntegerField(name='数量', default=0, editable=False)
   image = models.ImageField(upload_to='documents/', default='defo')
+
+  the_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
+
+  class Meta:
+    ordering = ["the_order"]
 
   def __str__(self):
     return self.品名

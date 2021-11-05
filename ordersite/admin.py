@@ -3,11 +3,15 @@ from django.db import models
 from import_export import resources
 from import_export.admin import ImportExportMixin
 from rangefilter.filters import DateRangeFilter
+from adminsortable.admin import SortableAdmin
 
 from .models import Product, Size, Offer
 
-admin.site.register(Product)
+admin.site.register(Product, SortableAdmin)
 admin.site.register(Size)
+
+class ProductAdmin(SortableAdmin):
+  list_display = ('品名', '品番', '価格')
 
 class OfferResource(resources.ModelResource):
   class Meta:
