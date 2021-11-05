@@ -43,6 +43,7 @@ class Offer(models.Model):
   def save(self, *args, **kwargs):
     self.小計 = self.価格 * self.数量
     self.小計_表示用 = "{:,}".format(self.小計)
+    self.日付 = timezone.datetime.today()
     super(Offer, self).save(*args, **kwargs)
 
   def __str__(self):
