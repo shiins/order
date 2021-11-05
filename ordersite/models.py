@@ -31,6 +31,8 @@ class Offer(models.Model):
   quantity = models.IntegerField(name='数量', null=True, blank=True)
   subtotal = models.IntegerField(name='小計', null=True, blank=True)
 
+  date = models.DateField(name="日付", null=True, blank=True)
+
   def save(self, *args, **kwargs):
     self.小計 = self.価格 * self.数量
     super(Offer, self).save(*args, **kwargs)

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ordersite.apps.OrdersiteConfig',
     'import_export',
-    # 'sendmail',
+    'rangefilter',
 ]
 
 MIDDLEWARE = [
