@@ -20,6 +20,8 @@ class Product(SortableMixin):
 
   the_order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
+  archive = models.NullBooleanField(name='アーカイブ', null=True)
+
   class Meta:
     ordering = ["the_order"]
 

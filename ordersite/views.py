@@ -10,7 +10,7 @@ from .forms import PostForm, PostFormSet
 
 def product_list(request):
   if request.method == "GET":
-    products = Product.objects.all()
+    products = Product.objects.filter(アーカイブ__isnull=True)
     context = {'products': products}
     return render(request, 'ordersite/order.html', context)
 
