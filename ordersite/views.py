@@ -65,13 +65,6 @@ def move_to_confirmation(request):
 
       product = 'product' + str(i)
 
-      # listed_product = {
-      #   listed_name: request.GET.get(listed_name),
-      #   listed_size: request.GET.get(listed_size),
-      #   listed_price: request.GET.get(listed_price),
-      #   listed_quantity: request.GET.get(listed_quantity),
-      # }
-
       listed_product = [
         request.GET.get(listed_name),
         request.GET.get(listed_size),
