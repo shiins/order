@@ -14,7 +14,7 @@
     <div>
       {% for key, value in listed_products.items %}
         {% with forloop.counter0|stringformat:"s" as scounter %}
-          {% for k, v in value.items %}
+          {% for v in value %}
             {% if forloop.counter|modulo:4 == 1 %}
               {% with name="name"|add:scounter %}
                 <input type="hidden" value="{{v}}" id="{{name}}">
