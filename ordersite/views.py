@@ -38,9 +38,11 @@ def move_to_confirmation(request):
       for form in formset:
         if not form.__getitem__("品名").value():
           break
+        if not (form.__getitem__("購入者").value() and form.__getitem__("メールアドレス").value()):
+          return redirect('error')
         recipient_address = str(form.__getitem__("メールアドレス").value())
-        mes += str(form.__getitem__("品名").value()) + "\n"
-        i += 1
+        mes += str(form.__getitem__("品名").value()) +"("+ str(form.__getitem__("サイズ").value()) + ")x"+ str(form.__getitem__("数量").value()) +"\n"
+        i += int(form.__getitem__("数量").value())
 
       # メール送信
       subject = "ご注文いただいた商品のお知らせ"
